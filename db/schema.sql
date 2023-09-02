@@ -3,12 +3,12 @@ CREATE DATABASE employee_db;
 
 USE employee_db;
 
-CREATE TABLE department(
+CREATE TABLE department (
     id INT NOT NULL PRIMARY KEY,
-    department_name VARCHAR(30) NOT NULL,
+    department_name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE role(
+CREATE TABLE role (
     id INT PRIMARY KEY,
     title VARCHAR(30),
     salary DECIMAL,
@@ -17,7 +17,7 @@ CREATE TABLE role(
     REFERENCES department(id)
     ON DELETE SET NULL
 );
-CREATE TABLE employee(
+CREATE TABLE employee (
     id INT PRIMARY KEY,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
