@@ -7,43 +7,78 @@ const questions = [
     name: "main",
     message: "What would you like to do?",
     choices: [
-      "View All Departments",
-      "View All Roles",
-      "View All Employees",
-      "Add a Department",
-      "Add a Role",
-      "Add an Employee",
-      "Update Employee Role",
+      {
+      name: "View All Departments",
+      value: "VIEW_ALL_DEPARTMENTS"
+      },
+      {
+      name: "View All Roles",
+      value: "VIEW_ALL_ROLES"
+      },
+      {
+      name: "View All Employees",
+      value: "VIEW_ALL_EMPLOYEES"
+      },
+      {
+      name: "Add a Department",
+      value: "ADD_A_DEPARTMENT"
+      },
+      {
+      name: "Add a Role",
+      value: "ADD_A_ROLE"
+      },
+      {
+      name: "Add an Employee",
+      value: "ADD_AN_EMPLOYEE"
+      },
+      {
+      name: "Update Employee Role",
+      value: "UPDATE_EMPLOYEE_ROLE"
+      },
     ],
+  },
+  {
+    when: (answers) => answers.main === "ADD_A_DEPARTMENT",
+    type: "input",
+    name: "department",
+    message: "Enter Department Name"
   },
 ];
 
-inquirer.prompt(questions).then((answers) => {
-  console.log(answers);
+function askQuestions() {
+  inquirer.prompt(questions).then((answers) => {
+    console.log(answers);
   validateAnswer(answers);
 });
+};
 
 function validateAnswer(answers) {
   switch (answers.main) {
-    case "View All Departments":
+    case "VIEW_ALL_DEPARTMENTS":
       lib.getAllDepartments();
       break;
-    case "View All Roles":
+    case "VIEW_ALL_ROLES":
       lib.getAllRoles();
       break;
-    case "View All Employees":
+    case "VIEW_ALL_EMPLOYEES":
       lib.getAllEmployees();
       break;
+    case "ADD_A_DEPARTMENT":
+      lib.addDepartment(answers.department);
+      console.log(answers.department);
   }
-}
+  setTimeout(() => {
+  askQuestions(questions);
+  }, 1000);
+};
 
-// GIVEN a command-line application that accepts user input
-// WHEN I start the application
-// THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-// WHEN I choose to view all departments
-// THEN I am presented with a formatted table showing department names and department ids
-// WHEN I choose to view all roles
-// THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
+function init() {
+  askQuestions(questions);
+};
+
+init();
+
+
 // WHEN I choose to view all employees
 // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 // WHEN I choose to add a department
