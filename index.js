@@ -1,3 +1,42 @@
+const lib = require("./db/index.js");
+const inquirer = require("inquirer");
+
+const questions = [
+  {
+    type: "list",
+    name: "main",
+    message: "What would you like to do?",
+    choices: [
+      "View All Departments",
+      "View All Roles",
+      "View All Employees",
+      "Add a Department",
+      "Add a Role",
+      "Add an Employee",
+      "Update Employee Role",
+    ],
+  },
+];
+
+inquirer.prompt(questions).then((answers) => {
+  console.log(answers);
+  validateAnswer(answers);
+});
+
+function validateAnswer(answers) {
+  switch (answers.main) {
+    case "View All Departments":
+      lib.getAllDepartments();
+      break;
+    case "View All Roles":
+      lib.getAllRoles();
+      break;
+    case "View All Employees":
+      lib.getAllEmployees();
+      break;
+  }
+}
+
 // GIVEN a command-line application that accepts user input
 // WHEN I start the application
 // THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
