@@ -11,15 +11,15 @@ function getAllDepartments() {
 }
 
 function addDepartment(department) {
-  const params = department
+  const params = department;
   const sql = `INSERT INTO department (department_name)
-  VALUES (?)`
+  VALUES (?)`;
   db.query(sql, params, (err, departments) => {
     if (err) {
-      console.log(err)
+      console.log(err);
     }
     console.table(departments);
-  })
+  });
 }
 
 function getAllRoles() {
@@ -34,8 +34,18 @@ function getAllRoles() {
   });
 }
 
-// WHEN I choose to view all employees
-// employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+function addRole(role, salary, department) {
+  const params = [role, salary, department];
+  const sql = `INSERT INTO role (title, salary, department_id)
+  VALUES (?, ?, ?)`;
+  db.query(sql, params, (err, roles) => {
+    if (err) {
+      console.log(err);
+    }
+    console.table(roles);
+  });
+}
+
 function getAllEmployees() {
   const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department_name, role.salary, employee.manager_id 
   FROM employee
@@ -49,4 +59,28 @@ function getAllEmployees() {
   });
 }
 
-module.exports = { getAllDepartments, getAllRoles, getAllEmployees, addDepartment };
+// WHEN I choose to add an employee
+// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
+function addEmployee(first, last, role, manager) {
+  const params = [first, last, role, manager];
+  const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+  VALUES (?, ?, ?, ?)`;
+  db.query(sql, params, (err, employee) => {
+    if (err) {
+      console.log(err);
+    }
+    console.table(employee);
+  });
+}
+
+// WHEN I choose to update an employee role
+// THEN I am prompted to select an employee to update and their new role and this information is updated in the database
+
+module.exports = {
+  getAllDepartments,
+  getAllRoles,
+  getAllEmployees,
+  addDepartment,
+  addRole,
+  addEmployee,
+};
