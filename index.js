@@ -47,6 +47,54 @@ const questions = [
     name: "department",
     message: "Enter Department Name",
   },
+  {
+    when: (answers) => answers.main === "ADD_A_ROLE",
+    type: "input",
+    name: "roleName",
+    message: "Enter Name",
+  },
+  {
+    when: (answers) => answers.roleName != null,
+    type: "input",
+    name: "roleSalary",
+    message: "Enter Salary",
+  },
+  {
+    when: (answers) => answers.roleSalary != null,
+    type: "input",
+    name: "roleDepartment",
+    message: "Enter Department",
+  },
+  {
+    when: (answers) => answers.main === "ADD_AN_EMPLOYEE",
+    type: "input",
+    name: "employeeFirst",
+    message: "Enter First Name",
+  },
+  {
+    when: (answers) => answers.employeeFirst != null,
+    type: "input",
+    name: "employeeLast",
+    message: "Enter Last Name",
+  },
+  {
+    when: (answers) => answers.employeeLast != null,
+    type: "input",
+    name: "employeeRole",
+    message: "Enter Role",
+  },
+  {
+    when: (answers) => answers.employeeRole != null,
+    type: "input",
+    name: "employeeManager",
+    message: "Enter Manager",
+  },
+  {
+    when: (answers) => answers.main === "UPDATE_EMPLOYEE_ROLE",
+    type: "input",
+    name: "updateRole",
+    message: "Select new Role for employee",
+  },
 ];
 
 function askQuestions() {
@@ -68,7 +116,17 @@ function validateAnswer(answers) {
       break;
     case "ADD_A_DEPARTMENT":
       lib.addDepartment(answers.department);
-      console.log(answers.department);
+    case "ADD_A_ROLE":
+      lib.addRole(answers.roleName, answers.roleSalary, answers.roleDepartment);
+      break;
+    case "ADD_AN_EMPLOYEE":
+      lib.addEmployee(
+        answers.employeeFirst,
+        answers.employeeLast,
+        answers.employeeRole,
+        answers.employeeManager
+      );
+      break;
     case "QUIT":
       console.log("Bye!");
       process.exit();
@@ -83,14 +141,3 @@ function init() {
 }
 
 init();
-
-// WHEN I choose to view all employees
-// THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-// WHEN I choose to add a department
-// THEN I am prompted to enter the name of the department and that department is added to the database
-// WHEN I choose to add a role
-// THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-// WHEN I choose to add an employee
-// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-// WHEN I choose to update an employee role
-// THEN I am prompted to select an employee to update and their new role and this information is updated in the database
