@@ -47,10 +47,11 @@ function addRole(role, salary, department) {
 }
 
 function getAllEmployees() {
-  const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department_name, role.salary, employee.manager_id 
+  const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department_name, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) as Manager
   FROM employee
   INNER JOIN role on role.id = employee.role_id
-  INNER JOIN department on department.id = role.department_id`;
+  INNER JOIN department on department.id = role.department_id
+  LEFT JOIN employee manager on manager.id = employee.manager_id`;
   db.query(sql, (err, employees) => {
     if (err) {
       return res.status(500).json({ message: "error", error: message });
