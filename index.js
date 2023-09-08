@@ -32,10 +32,6 @@ const questions = [
         value: "ADD_AN_EMPLOYEE",
       },
       {
-        name: "Update Employee Role",
-        value: "UPDATE_EMPLOYEE_ROLE",
-      },
-      {
         name: "Quit",
         value: "QUIT",
       },
